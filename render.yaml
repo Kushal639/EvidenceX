@@ -11,3 +11,17 @@ services:
       - key: JWT_SECRET
         generateValue: true
     plan: free
+
+  - type: web
+    name: evidencex-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_ENV
+        value: production
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    plan: free
